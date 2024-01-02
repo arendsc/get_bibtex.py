@@ -1,6 +1,6 @@
 # get_bibtex.py
 
-This is a Python program that can be used to find BibTeX information through crossref and copy the entry to the clipboard.
+A command-line-based program to fetch [BibTeX](https://www.bibtex.org/) entries using [Crossref](https://www.crossref.org/).
 
 ## Setup
 
@@ -10,19 +10,15 @@ This is a Python program that can be used to find BibTeX information through cro
 
 ## Requirements
 
-This program requires the following Python packages:
+This program requires the following non built-in Python packages:
 
 - requests
-- json
-- sys
-- argparse
-- re
 - pyperclip
 
 You can install these packages using pip:
 
 ```bash
-pip install requests json sys argparse re pyperclip
+pip install requests pyperclip
 ```
 
 ## Help
@@ -35,33 +31,31 @@ get_bibtex.py -h
 
 ## Basic Usage
 
-Here are some examples of how to use this program:
-
-- Search for works by author 'John Doe' and print the top 20 matches:
+Search for works by author 'John Doe' and print the top 20 matches:
 
 ```bash
 get_bibtex.py -a 'John Doe'
 ```
 
-- Specify some keywords from the title of the paper to search for:
+Specify some keywords from the title of the paper to search for:
 
 ```bash
 get_bibtex.py -a 'John Doe' -k 'machine learning'
 ```
 
-- Change the number of matches to show (for example, 10):
+Change the number of matches to show (for example, 10):
 
 ```bash
 get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10
 ```
 
-- Use the `-c` argument to save the BibTeX entry to the clipboard:
+Use the `-c` argument to save the BibTeX entry to the clipboard:
 
 ```bash
 get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c
 ```
 
-- Already know which match you want (e.g. the second)? Select that match and only get the BibTeX entry:
+Already know which match you want (e.g. the second)? Select that match and only get the BibTeX entry:
 
 ```bash
 get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c -s 2
