@@ -30,7 +30,7 @@ pip install requests json sys argparse re pyperclip
 You can get a list of all the command-line arguments by running the script with the `-h` or `--help` option:
 
 ```bash
-python get_bibtex.py -h
+get_bibtex.py -h
 ```
 
 ## Basic Usage
@@ -40,29 +40,29 @@ Here are some examples of how to use this program:
 - Search for works by author 'John Doe' and print the top 20 matches:
 
 ```bash
-python get_bibtex.py -a 'John Doe'
+get_bibtex.py -a 'John Doe'
 ```
 
 - Specify some keywords from the title of the paper to search for:
 
 ```bash
-python get_bibtex.py -a 'John Doe' -k 'machine learning'
+get_bibtex.py -a 'John Doe' -k 'machine learning'
 ```
 
 - Change the number of matches to show (for example, 10):
 
 ```bash
-python get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10
+get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10
 ```
 
 - Use the `-c` argument to save the BibTeX entry to the clipboard:
 
 ```bash
-python get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c
+get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c
 ```
 
 - Already know which match you want (e.g. the second)? Select that match and only get the BibTeX entry:
 
 ```bash
-python get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c -s 2
+get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c -s 2
 ```
