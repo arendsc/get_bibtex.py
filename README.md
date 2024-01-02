@@ -67,5 +67,3 @@ python get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c
 python get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c -s 2
 ```
 ```
-
-Please replace `<repo_url>` with the actual URL of your repository.
