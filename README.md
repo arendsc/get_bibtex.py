@@ -66,4 +66,3 @@ python get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c
 ```bash
 python get_bibtex.py -a 'John Doe' -k 'machine learning' -m 10 -c -s 2
 ```
-```
