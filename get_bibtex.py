@@ -71,13 +71,21 @@ def get_bibtex_crossref(doi, clipboard=False):
         return None
 
 def get_doi(author_name, keywords=None, num_matches=20, clipboard=False, select=None):
-    # Replace spaces with "+"
-    author = author_name.replace(" ", "+")
+    # Initialize the base query string
+    query = "https://api.crossref.org/works?"
 
-    # Create the query string
-    query = f"https://api.crossref.org/works?query.author={author}"
+    # Check if author is provided and append to the query
+    if author_name:
+        # Replace spaces with "+"
+        author = author_name.replace(" ", "+")
+        query += f"query.author={author}"
+
+    # Check if keywords are provided and append to the query
     if keywords:
-        query += f"&query.title={keywords}"
+        # Add '&' if author was also provided
+        if author_name:
+            query += "&"
+        query += f"query.title={keywords}"
 
     # Send the GET request
     response = requests.get(query)
@@ -95,10 +103,13 @@ def get_doi(author_name, keywords=None, num_matches=20, clipboard=False, select=
         else:
             # Print the matches and ask the user to choose one
             for i, match in enumerate(matches, start=1):
-                authors = [f"{a['given']} {a['family']}" for a in match['author']]
+                # Handle case where 'author' key might not be present
+                author_list = match.get('author', [])
+                authors = [f"{a['given']} {a['family']}" for a in author_list] if author_list else ['Unknown']
                 pub_date = match.get('created', {}).get('date-time', 'Unknown')
                 update_date = match.get('updated', {}).get('date-time', 'Unknown')
-                print(f"{i}\n-\nAuthors: {authors}\nTitle: {match['title'][0]}\nPublished: {pub_date}\nUpdated: {update_date}\nDOI: {match['DOI']}\n")
+                journal = match.get('container-title', ['Unknown'])[0]
+                print(f"{i}\n-\nAuthors: {authors}\nTitle: {match['title'][0]}\nJournal: {journal}\nPublished: {pub_date}\nDOI: {match['DOI']}\n")
 
             try:
                 choice = int(input(f"Choose a match (1-{num_matches}): ")) - 1
@@ -119,7 +130,7 @@ def get_doi(author_name, keywords=None, num_matches=20, clipboard=False, select=
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(epilog=USAGE_EXAMPLES, description='Get BibTeX information.', formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('-a', '--author', default="", help="""specifies (parts of) the author's names""")
+    parser.add_argument('-a', '--author', help="""specifies (parts of) the author's names""")
     parser.add_argument('-k', '--keywords', help="""specifies some keywords from the title of the paper to search for""")
     parser.add_argument('-m', '--num_matches', type=int, default=20, help="""specifies the number of matches to show (default: 20)""")
     parser.add_argument('-c', '--clipboard', action='store_true', help="""if this argument is included, the BibTeX entry will be copied to the clipboard""")
