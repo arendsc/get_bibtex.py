@@ -10,10 +10,10 @@ A command-line-based program to fetch [BibTeX](https://www.bibtex.org/) entries 
 
 ## Requirements
 
-This program requires the following non built-in Python packages:
+This program requires the following third-party Python packages:
 
 - requests
-- pyperclip
+- Optional: pyperclip
 
 You can install these packages using pip:
 
