@@ -21,7 +21,10 @@ import json
 import sys
 import argparse
 import re
-import pyperclip
+try:
+    import pyperclip
+except ImportError:
+    pyperclip = None
 
 USAGE_EXAMPLES = f"""
 Examples:
@@ -59,8 +62,13 @@ def get_bibtex_crossref(doi, clipboard=False):
 
         # Copy the BibTeX entry to the clipboard if clipboard is True
         if clipboard:
-            pyperclip.copy(bibtex)
-            print("\nThe following BibTeX entry has been copied to the clipboard:\n\n" + bibtex)
+            if pyperclip:
+                pyperclip.copy(bibtex)
+                print("\nThe following BibTeX entry has been copied to the clipboard:\n\n" + bibtex)
+            else:
+                print("\npyperclip is not installed. Please install it using 'pip install pyperclip' to copy the BibTeX entry to the clipboard.",
+                      file=sys.stderr)
+                print("\n" + bibtex)
         else:
             print("\n" + bibtex)
 
